@@ -89,7 +89,9 @@
               </span>
             </div>
             <div class="w-1/3 text-right cursor-pointer">
-              Clear Completed
+              <span @click="clearCompleted()">
+                Clear Completed
+              </span>
             </div>
           </div>
         </div>
@@ -142,6 +144,13 @@ export default defineComponent({
     }
   },
   methods: {
+    clearCompleted: function () {
+      for (let i = this.todos.length - 1; i >= 0; i--) {
+        if (this.todos[i].isCompleted) {
+          this.todos.splice(i, 1)
+        }
+      }
+    },
     makeNewTodo: function () {
       if (this.newTodo != '') {
         this.todos.push({
@@ -153,20 +162,20 @@ export default defineComponent({
       }
     },
     toggleCompleted: function (index) {
-      if (!this.todos[index].isCompleted) {
+      // if (!this.todos[index].isCompleted) {
         this.todos[index].isCompleted = !this.todos[index].isCompleted;
 
-        let fakeCopy = this.todos[index]
+        // let fakeCopy = this.todos[index]
 
-        this.todos.splice(index, 1)
-        this.todos.unshift(fakeCopy)
-      } else {
-        this.todos[index].isCompleted = !this.todos[index].isCompleted;
+        // this.todos.splice(index, 1)
+        // this.todos.unshift(fakeCopy)
+      // } else {
+      //   this.todos[index].isCompleted = !this.todos[index].isCompleted;
 
-        let fakeCopy = this.todos[index]
-        this.todos.splice(index, 1)
-        this.todos.push(fakeCopy)
-      }
+      //   let fakeCopy = this.todos[index]
+      //   this.todos.splice(index, 1)
+      //   this.todos.push(fakeCopy)
+      // }
     },
     removeTodo: function (index) {
       this.todos.splice(index, 1)
