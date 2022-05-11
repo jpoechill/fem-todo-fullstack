@@ -15,7 +15,7 @@
         <div class="bg-white mt-5 rounded p-0 drop-shadow-2xl">
           <div class="p-0">
             <ul class="list-none text-lg">
-              <li v-for="(todo, index) in todos" :key="index" class="w-full px-5 pt-5 pb-4 flex border-b items-center justify-between w-full group cursor-pointer">
+              <li v-for="(todo, index) in todos" :key="index" draggable="true" @drop="drop($event, index)" @dragover="acceptDrag($event)" @dragstart="drag($event, index)" class="w-full px-5 pt-5 pb-4 flex border-b items-center justify-between w-full group cursor-pointer">
                 <div class="flex content-center items-center">
                   <div v-if="todo.isCompleted" class="relative  w-[24px] h-[24px] bg-green-500 rounded-full overflow-hidden">
                     <div @click="toggleCompleted(index)" class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
@@ -120,6 +120,8 @@ export default defineComponent({
   data () {
     return {
       newTodo: '',
+      dragIndex: 0,
+      droppedDesc: 'DROP HERE',
       todos: [
         // {
         //   description: 'lorem ipsum',
@@ -144,6 +146,21 @@ export default defineComponent({
     }
   },
   methods: {
+    acceptDrag (event) {
+      // console.log(event)
+      event.preventDefault()
+    },
+    drop(ev, dropIndex) {
+      ev.preventDefault()
+      let temp = this.todos[this.dragIndex]
+      this.todos.splice(this.dragIndex, 1)
+      this.todos.splice(dropIndex, 0, temp)
+    },
+    drag (ev, index) {
+      // console.log(index)
+      this.dragIndex = index
+      ev.dataTransfer.setData("text", this.todos[index].description);
+    },
     clearCompleted: function () {
       for (let i = this.todos.length - 1; i >= 0; i--) {
         if (this.todos[i].isCompleted) {
