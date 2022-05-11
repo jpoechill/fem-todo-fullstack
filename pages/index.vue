@@ -15,7 +15,10 @@
         <div class="bg-white mt-5 rounded p-0 drop-shadow-2xl">
           <div class="p-0">
             <ul class="list-none text-lg">
-              <li v-for="(todo, index) in todos" :key="index" draggable="true" @drop="drop($event, index)" @dragover="acceptDrag($event)" @dragstart="drag($event, index)" class="w-full px-5 pt-5 pb-4 flex border-b items-center justify-between w-full group cursor-pointer">
+              <li v-for="(todo, index) in todos" :key="index" :class="[todo.isHovered ? 'bg-gray-50' : '', todo.isVisible ? 'visibile' : 'hidden']" draggable="true" 
+                  @drop="drop($event, index)" @dragover="dragOver($event, index)" 
+                  @dragleave="dragLeave($event, index)" @dragstart="drag($event, index)" 
+                  class="ease-in w-full px-5 pt-5 pb-4 flex border-b items-center justify-between w-full group cursor-pointer">
                 <div class="flex content-center items-center">
                   <div v-if="todo.isCompleted" class="relative  w-[24px] h-[24px] bg-green-500 rounded-full overflow-hidden">
                     <div @click="toggleCompleted(index)" class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
@@ -39,37 +42,6 @@
                   <img @click="removeTodo(index)" src="/icon-cross.svg" class="invisible group-hover:visible float-right" alt="">
                 </div>
               </li>
-              <!-- <li class="w-full px-5 pt-5 pb-4 flex border-b items-center justify-between w-full group cursor-pointer">
-                <div class="flex content-center items-center">
-                  <div class="relative  w-[24px] h-[24px] bg-green-500 rounded-full overflow-hidden">
-                    <div class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
-                      <img src="/icon-check.svg" alt="">
-                    </div>
-                  </div>
-                  <span class="pl-4 line-through  decoration-1 text-gray-300">
-                    Complete online JavaScript  course
-                  </span>
-                </div>
-                <div>
-                  <img src="/icon-cross.svg" class="invisible group-hover:visible float-right" alt="">
-                </div>
-              </li>
-              <li class="w-full px-5 pt-5 pb-4 flex border-b align-middle justify-between w-full group cursor-pointer">
-                <div class="flex">
-                  <div class="relative w-[24px] h-[24px] rounded-full overflow-hidden border-2 hover:border-none">
-                    <div class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
-                      <div class="bg-white w-[20px] h-[20px] rounded-full">
-                      </div>
-                    </div>
-                  </div>
-                  <span class="pl-4">
-                    Jog around the park 3x xxxx
-                  </span>
-                </div>
-                <div>
-                  <img src="/icon-cross.svg" class="invisible group-hover:visible float-right" alt="">
-                </div>
-              </li> -->
             </ul>
           </div>
           <!-- <hr> -->
@@ -78,18 +50,18 @@
               {{ itemsLeft }} items left 
             </div>
             <div class="flex w-1/3 text-center">
-              <span class="pr-4 cursor-pointer">
+              <span @click="show ('all')" class="pr-4 cursor-pointer hover:text-gray-900">
                 All
               </span>
-              <span class="cursor-pointer">
+              <span @click="show ('active')" class="cursor-pointer hover:text-gray-900">
                 Active
               </span>
-              <span class="pl-4 cursor-pointer">
+              <span @click="show ('completed')" class="pl-4 cursor-pointer hover:text-gray-900">
                 Completed
               </span>
             </div>
             <div class="w-1/3 text-right cursor-pointer">
-              <span @click="clearCompleted()">
+              <span @click="clearCompleted()" class="hover:text-gray-900">
                 Clear Completed
               </span>
             </div>
@@ -123,14 +95,11 @@ export default defineComponent({
       dragIndex: 0,
       droppedDesc: 'DROP HERE',
       todos: [
-        // {
-        //   description: 'lorem ipsum',
-        //   isCompleted: false
-        // },
-        // {
-        //   description: 'lorem ipsum',
-        //   isCompleted: true
-        // }
+        {
+          description: 'lorem ipsum',
+          isCompleted: true,
+          isVisible: true,
+        }
       ]
     }
   },
@@ -146,18 +115,25 @@ export default defineComponent({
     }
   },
   methods: {
-    acceptDrag (event) {
-      // console.log(event)
+    dragOver (event, index) {
       event.preventDefault()
+      this.todos[index].isHovered = true
+      // console.log('You hovered over me')
+    },
+    dragLeave (event, index) {
+      event.preventDefault()
+      this.todos[index].isHovered = false
+      // console.log('You hovered away from me')
     },
     drop(ev, dropIndex) {
       ev.preventDefault()
       let temp = this.todos[this.dragIndex]
+      // this.todos[this.dragIndex].isHovered = false
+      this.todos[dropIndex].isHovered = false
       this.todos.splice(this.dragIndex, 1)
       this.todos.splice(dropIndex, 0, temp)
     },
     drag (ev, index) {
-      // console.log(index)
       this.dragIndex = index
       ev.dataTransfer.setData("text", this.todos[index].description);
     },
@@ -172,27 +148,36 @@ export default defineComponent({
       if (this.newTodo != '') {
         this.todos.push({
           description: this.newTodo,
-          isCompleted: false
+          isCompleted: false,
+          isHovered: false,
+          isVisible: true
         })
 
         this.newTodo = '';
       }
     },
+    show (type) {
+      if (type === 'all') {
+        this.todos = this.todos.map(x => {
+          x.isVisible = true
+          return x
+        })
+      } 
+      if (type === 'active') {
+        this.todos = this.todos.map(x => {
+          x.isVisible = !x.isCompleted
+          return x
+        })
+      } 
+      if (type === 'completed') {
+        this.todos = this.todos.map(x => {
+          x.isVisible = x.isCompleted
+          return x
+        })
+      } 
+    },
     toggleCompleted: function (index) {
-      // if (!this.todos[index].isCompleted) {
-        this.todos[index].isCompleted = !this.todos[index].isCompleted;
-
-        // let fakeCopy = this.todos[index]
-
-        // this.todos.splice(index, 1)
-        // this.todos.unshift(fakeCopy)
-      // } else {
-      //   this.todos[index].isCompleted = !this.todos[index].isCompleted;
-
-      //   let fakeCopy = this.todos[index]
-      //   this.todos.splice(index, 1)
-      //   this.todos.push(fakeCopy)
-      // }
+      this.todos[index].isCompleted = !this.todos[index].isCompleted;
     },
     removeTodo: function (index) {
       this.todos.splice(index, 1)
