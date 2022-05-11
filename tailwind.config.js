@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: 'class',
   mode: "jit",
   content: ['./src/**/*.{html,js}', './node_modules/tw-elements/dist/js/**/*.js'],
   purge: [
@@ -9,7 +10,7 @@ module.exports = {
     "./plugins/**/*.{js,ts}",
     // "./nuxt.config.{js,ts}",
   ],
-  darkMode: false, // or 'media' or 'class'
+  // darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
   },
