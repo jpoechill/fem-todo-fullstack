@@ -1,5 +1,6 @@
 module.exports = {
   mode: "jit",
+  content: ['./src/**/*.{html,js}', './node_modules/tw-elements/dist/js/**/*.js'],
   purge: [
     "./components/**/*.{vue,js}",
     "./layouts/**/*.vue",
@@ -15,5 +16,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('tw-elements/dist/plugin')
+  ],
 }

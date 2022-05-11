@@ -11,9 +11,14 @@ export default defineNuxtConfig({
         link: [
             { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500&display=swap" }
         ],
-    },
+        script: [
+          {
+            // src: "./TW-ELEMENTS-PATH/dist/js/index.min.js",
+          },
+        ],
+    },    
     buildModules: [
-        // '@nuxt/postcss8',
+        "@nuxt3-graphql/urql",
     ],
     css: ["~/assets/css/tailwind.css"],
     build: {
@@ -25,5 +30,8 @@ export default defineNuxtConfig({
             },
         },
         },
+    },
+    urql: {
+        url: "http://localhost:4000/"
     },
 })
