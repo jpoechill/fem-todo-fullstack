@@ -25,8 +25,8 @@ export default defineNuxtConfig({
         postcss: {
         postcssOptions: {
             plugins: {
-            tailwindcss: {},
-            autoprefixer: {},
+                tailwindcss: {},
+                autoprefixer: {},
             },
         },
         },

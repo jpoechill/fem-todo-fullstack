@@ -16,16 +16,15 @@
                 <input type="text" ref="todoInput" v-model="newTodo" placeholder="Create a new to do..." v-on:keyup.enter="makeNewTodo()" class="dark:bg-[#25273D] dark:text-[#C8CBE7] focus:outline-0 w-full p-1 pt-2 ml-3 text-lg">
               </div>
             </div>
-            <div v-if="hasFetched" class="bg-white mt-5 rounded p-0 drop-shadow-2xl">
+            <div v-if="hasFetched" class="bg-white dark:bg-[#25273D] mt-5  rounded-[5px] p-0 drop-shadow-2xl">
               <div class="p-0">
                 <ul class="list-none text-lg">
-
                   <!-- Online List -->
                   <div v-if="online && data && data.todos">
                     <li v-for="(todo, index) in data.todos" :key="index" :class="[todo.isHovered ? 'bg-gray-50' : '', todo.isVisible ? 'visibile' : 'hidden']" draggable="true" 
                       @drop="drop($event, index)" @dragover="dragOver($event, index)" 
                       @dragleave="dragLeave($event, index)" @dragstart="drag($event, index)" 
-                      class="ease-in w-full px-5 pt-5 pb-4 flex border-b dark:bg-[#25273D] dark:text-[#C8CBE7] items-center justify-between w-full group cursor-pointer">
+                      class="ease-in w-full px-5 pt-5 pb-4 flex border-b dark:bg-[#25273D] dark:border-[#393A4B] dark:text-[#C8CBE7] items-center justify-between w-full group cursor-pointer">
                       <div class="flex content-center items-center">
                         <div v-if="todo.isCompleted" class="relative  w-[24px] h-[24px] rounded-full overflow-hidden">
                           <div @click="toggleCompleted(index)" class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
@@ -33,8 +32,8 @@
                           </div>
                         </div>
                         <div v-else>
-                          <div @click="toggleCompleted(index)" class="relative w-[24px] h-[24px] rounded-full overflow-hidden border-2 dark:border-[#393A4B] hover:border-none">
-                            <div class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
+                          <div @click="toggleCompleted(index)" class="relative w-[24px] h-[24px] rounded-full overflow-hidden border-2 dark:border-[#393A4B] group-hover:border-none">
+                            <div ref="cat" class="opacity-0 group-hover:opacity-100 absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
                               <div class="bg-white dark:bg-[#25273D] w-[20px] h-[20px] rounded-full">
                               </div>
                             </div>
@@ -56,7 +55,7 @@
                     <li v-for="(todo, index) in todos" :key="index" :class="[todo.isHovered ? 'bg-gray-50' : '', todo.isVisible ? 'visibile' : 'hidden']" draggable="true" 
                       @drop="drop($event, index)" @dragover="dragOver($event, index)" 
                       @dragleave="dragLeave($event, index)" @dragstart="drag($event, index)" 
-                      class="ease-in w-full px-5 pt-5 pb-4 flex border-b dark:bg-[#25273D] dark:text-[#C8CBE7] items-center justify-between w-full group cursor-pointer">
+                      class="ease-in w-full px-5 pt-5 pb-4 flex border-b dark:bg-[#25273D] dark:bg-[#25273D] dark:text-[#C8CBE7] items-center justify-between w-full group cursor-pointer">
                       <div class="flex content-center items-center">
                         <div v-if="todo.isCompleted" class="relative  w-[24px] h-[24px] rounded-full overflow-hidden">
                           <div @click="toggleCompleted(index)" class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
@@ -65,7 +64,7 @@
                         </div>
                         <div v-else>
                           <div @click="toggleCompleted(index)" class="relative w-[24px] h-[24px] rounded-full overflow-hidden border-2 dark:border-[#393A4B] hover:border-none">
-                            <div class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
+                            <div class="group invisible group-hover:visible absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
                               <div class="bg-white dark:bg-[#25273D] w-[20px] h-[20px] rounded-full">
                               </div>
                             </div>
@@ -83,7 +82,7 @@
                 </ul>
               </div>
               <!-- <hr> -->
-              <div class="flex justify-around p-5 text-sm  dark:bg-[#25273D] text-gray-500">
+              <div class="flex justify-around p-5 text-sm  dark:bg-[#25273D] text-gray-500]">
                 <div class="w-1/3">
                   {{ itemsLeft }} items left 
                 </div>

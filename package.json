@@ -11,13 +11,16 @@
     "autoprefixer": "^10.4.7",
     "nuxt": "3.0.0-rc.1",
     "postcss": "^8.4.13",
-    "tailwindcss": "^3.0.24"
+    "tailwindcss": "^3.0.24",
+    "tailwindcss-named-groups": "^0.0.5",
+    "tailwindcss-nested-groups": "^1.2.4"
   },
   "dependencies": {
     "@nuxt3-graphql/urql": "^0.4.0",
     "@urql/vue": "^0.6.2",
     "graphql": "^15.8.0",
     "nuxt-graphql-request": "^5.1.0",
+    "tailwindcss-scoped-groups": "^2.0.0",
     "tw-elements": "^1.0.0-alpha12",
     "vuedraggable": "^4.1.0"
   }
