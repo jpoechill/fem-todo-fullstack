@@ -83,7 +83,7 @@
               </div>
 
               <!-- Tablet/Desktop -->
-              <div class="hidden md:flex justify-around p-5 text-sm  dark:bg-[#25273D] text-gray-500]">
+              <div class="hidden md:flex justify-around p-5 text-sm text-[#9495A5] dark:text-[#5B5E7E]  text-gray-500]">
                 <div class="w-1/3">
                   {{ itemsLeft }} items left 
                 </div>
@@ -109,7 +109,7 @@
             </div>
 
             <!-- Mobile -->
-            <div class="flex md:hidden justify-around p-5 text-sm rounded-[5px] mt-5 bg-white dark:bg-[#25273D] text-gray-500] drop-shadow-2xl">
+            <div class="flex md:hidden justify-around p-5 text-sm rounded-[5px] mt-5 bg-white dark:bg-[#25273D] text-[#9495A5] dark:text-[#5B5E7E] drop-shadow-2xl">
               <div class="flex w-1/3 text-center">
                 <span @click="show('all')" class="pr-4 cursor-pointer hover:text-gray-900 active:text-sky-600" :class="[showState === 'all' ? 'text-sky-600' : '']">
                   All
