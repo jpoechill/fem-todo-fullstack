@@ -40,7 +40,7 @@
                             </div>
                           </div>
                         </div>
-                        <span class="pl-4 decoration-1" :class="[todo.isCompleted ? 'line-through text-gray-300' : '']">
+                        <span class="pl-4 decoration-1" @click="toggleCompleted(index)" :class="[todo.isCompleted ? 'line-through text-gray-300' : '']">
                           {{ todo.description }}
                         </span>
                       </div>
