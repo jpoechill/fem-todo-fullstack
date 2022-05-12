@@ -1,7 +1,7 @@
 <template>
   <div :class="darkMode ? 'dark' : ''">
     <div class="relative">
-      <div class="absolute w-full z-50 px-5">
+      <div class="absolute w-full z-50 px-5 overflow-visible">
         <div class="container mx-auto">
           <div class="md:w-[540px] mx-auto pt-28 align-baseline">
             <div class="flex justify-between items-end w-full">
@@ -125,7 +125,7 @@
         </div>
       </div>
       
-      <div class="absolute w-100 w-full top-0 z-20 select-none pointer-events-none h-screen dark:bg-[#171823]">
+      <div class="absolute w-full z-20 select-none pointer-events-none">
         <img :src="darkMode ? '/bg-desktop-dark.jpg' : '/bg-desktop-light.jpg'" class="min-h-[200px] w-full z-10" alt="">
       </div>
     </div>
@@ -360,6 +360,12 @@ async setup() {
     },
     toggleDarkMode () {
       this.darkMode = !this.darkMode
+
+      if (this.darkMode) {
+        document.body.classList.add('bg-[#171823]')
+      } else {
+        document.body.classList.remove('bg-[#171823]')
+      }
     },
     // onDrag handlers
     dragOver (event, index) {
@@ -405,7 +411,8 @@ async setup() {
 
 
 <style>
-html, body {
+html, body, #__nuxt {
   font-family: 'Josefin Sans';
+  height: 100%;
 }
 </style>
