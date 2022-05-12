@@ -241,7 +241,7 @@ async setup() {
       dragIndex: 0,
       todos: [
         {
-          description: 'Complete online Leetcode course',
+          description: 'Complete online JavaScript course',
           isCompleted: true,
           isVisible: true,
         },
