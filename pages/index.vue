@@ -16,7 +16,7 @@
                 <input type="text" ref="todoInput" v-model="newTodo" placeholder="Create a new to do..." v-on:keyup.enter="makeNewTodo()" class="dark:bg-[#25273D] dark:text-[#C8CBE7] focus:outline-0 w-full p-1 pt-2 ml-3 text-lg">
               </div>
             </div>
-            <div v-if="hasFetched" class="bg-white dark:bg-[#25273D] mt-5  rounded-[5px] p-0 drop-shadow-2xl">
+            <div v-if="hasFetched" class="bg-white dark:bg-[#25273D] mt-5 rounded-[5px] p-0 drop-shadow-2xl">
               <div class="p-0">
                 <ul class="list-none text-lg">
                   <!-- Online List -->
@@ -81,8 +81,9 @@
                   </div>
                 </ul>
               </div>
-              <!-- <hr> -->
-              <div class="flex justify-around p-5 text-sm  dark:bg-[#25273D] text-gray-500]">
+
+              <!-- Tablet/Desktop -->
+              <div class="hidden md:flex justify-around p-5 text-sm  dark:bg-[#25273D] text-gray-500]">
                 <div class="w-1/3">
                   {{ itemsLeft }} items left 
                 </div>
@@ -102,6 +103,23 @@
                     Clear Completed
                   </span>
                 </div>
+              </div>
+
+              
+            </div>
+
+            <!-- Mobile -->
+            <div class="flex md:hidden justify-around p-5 text-sm rounded-[5px] mt-5 bg-white dark:bg-[#25273D] text-gray-500] drop-shadow-2xl">
+              <div class="flex w-1/3 text-center">
+                <span @click="show('all')" class="pr-4 cursor-pointer hover:text-gray-900 active:text-sky-600" :class="[showState === 'all' ? 'text-sky-600' : '']">
+                  All
+                </span>
+                <span @click="show('active')" class="cursor-pointer hover:text-gray-900 active:text-sky-600" :class="[showState === 'active' ? 'text-sky-600' : '']">
+                  Active
+                </span>
+                <span @click="show('completed')" class="pl-4 cursor-pointer hover:text-gray-900 active:text-sky-600" :class="[showState === 'completed' ? 'text-sky-600' : '']">
+                  Completed
+                </span>
               </div>
             </div>
 
