@@ -22,18 +22,18 @@
 
                   <!-- Online List -->
                   <div v-if="online && data && data.todos">
-                    <li v-for="(todo, index) in data.todos" :key="index" :class="[todo.isHovered ? 'bg-gray-50' : '', todo.isVisible ? 'visibile' : 'hidden']" draggable="true" 
+                    <li v-for="(todo, index) in data.todos" :key="index" @click="toggleCompleted(index)" :class="[todo.isHovered ? 'bg-gray-50' : '', todo.isVisible ? 'visibile' : 'hidden']" draggable="true" 
                       @drop="drop($event, index)" @dragover="dragOver($event, index)" 
                       @dragleave="dragLeave($event, index)" @dragstart="drag($event, index)" 
                       class="ease-in w-full px-5 pt-5 pb-4 flex border-b dark:bg-[#25273D] dark:text-[#C8CBE7] items-center justify-between w-full group cursor-pointer">
                       <div class="flex content-center items-center">
                         <div v-if="todo.isCompleted" class="relative  w-[24px] h-[24px] rounded-full overflow-hidden">
-                          <div @click="toggleCompleted(index)" class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
+                          <div class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
                             <img src="/icon-check.svg" alt="">
                           </div>
                         </div>
                         <div v-else>
-                          <div @click="toggleCompleted(index)" class="relative w-[24px] h-[24px] rounded-full overflow-hidden border-2 dark:border-[#393A4B] hover:border-none">
+                          <div class="relative w-[24px] h-[24px] rounded-full overflow-hidden border-2 dark:border-[#393A4B] hover:border-none">
                             <div class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
                               <div class="bg-white dark:bg-[#25273D] w-[20px] h-[20px] rounded-full">
                               </div>
@@ -53,18 +53,18 @@
 
                   <!-- Offline List -->
                   <div v-if="!online">
-                    <li v-for="(todo, index) in todos" :key="index" :class="[todo.isHovered ? 'bg-gray-50' : '', todo.isVisible ? 'visibile' : 'hidden']" draggable="true" 
+                    <li v-for="(todo, index) in todos" :key="index" @click="toggleCompleted(index)" :class="[todo.isHovered ? 'bg-gray-50' : '', todo.isVisible ? 'visibile' : 'hidden']" draggable="true" 
                       @drop="drop($event, index)" @dragover="dragOver($event, index)" 
                       @dragleave="dragLeave($event, index)" @dragstart="drag($event, index)" 
                       class="ease-in w-full px-5 pt-5 pb-4 flex border-b dark:bg-[#25273D] dark:text-[#C8CBE7] items-center justify-between w-full group cursor-pointer">
                       <div class="flex content-center items-center">
                         <div v-if="todo.isCompleted" class="relative  w-[24px] h-[24px] rounded-full overflow-hidden">
-                          <div @click="toggleCompleted(index)" class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
+                          <div class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
                             <img src="/icon-check.svg" alt="">
                           </div>
                         </div>
                         <div v-else>
-                          <div @click="toggleCompleted(index)" class="relative w-[24px] h-[24px] rounded-full overflow-hidden border-2 dark:border-[#393A4B] hover:border-none">
+                          <div class="relative w-[24px] h-[24px] rounded-full overflow-hidden border-2 dark:border-[#393A4B] hover:border-none">
                             <div class="absolute flex items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] bg-gradient-to-br from-cyan-300 to-fuchsia-500">
                               <div class="bg-white dark:bg-[#25273D] w-[20px] h-[20px] rounded-full">
                               </div>
